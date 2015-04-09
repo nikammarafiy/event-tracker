@@ -1,12 +1,3 @@
-#
-# Be sure to run `pod lib lint L360EventTracker.podspec' to ensure this is a
-# valid spec and remove all comments before submitting the spec.
-#
-# Any lines starting with a # are optional, but encouraged
-#
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
   s.name             = "L360EventTracker"
   s.version          = "0.1.0"
@@ -18,7 +9,7 @@ Pod::Spec.new do |s|
                        DESC
   s.homepage         = "https://github.com/life360/event-tracker"
 # s.screenshots      = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
-  s.license          = { :type => "Apache License, Version 2.0", :file => "LICENSE.md" }
+  s.license          = { :type => "Apache License, Version 2.0", :file => "L360EventTracker/LICENSE.md" }
   s.author           = { "Mohammed Islam" => "mohammed@life360.com" }
   s.source           = { :git => "https://github.com/life360/event-tracker.git", :tag => s.version.to_s }
 
