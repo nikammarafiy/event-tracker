@@ -7,18 +7,18 @@
 //
 
 #import "L360EventTracker.h"
-#import <objc/runtime.h>
 #import "L360ExecutionObject.h"
-#import "L360SwrveManager.h"
-#import "Appirater.h"
 #import "L360EventObject.h"
 
 static NSString * const keyPrefix = @"kL360EventTracker";
 @interface L360EventTracker ()
 {
-    NSMutableArray *_executionObjects;
+    ;
     NSMutableArray *_eventObjects;
+    NSOperationQueue *_serialOperationQueue;
 }
+
+@property (nonatomic, strong) NSMutableArray *executionObjects;
 
 @end
 
@@ -42,14 +42,10 @@ static NSString * const keyPrefix = @"kL360EventTracker";
 {
     self = [super init];
     if (self) {
-        // Setup the User Defaults Store
-        [self setupDefaults];
-//        [self setupPropertiesFromDefaults];
-//        
-//        [self setupPropertyObservation];
-        
         _executionObjects = [NSMutableArray array];
         _eventObjects = [NSMutableArray array];
+        _serialOperationQueue = [[NSOperationQueue alloc] init];
+        _serialOperationQueue.maxConcurrentOperationCount = 1; // This turns it into a serial queue
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
     }
@@ -58,8 +54,6 @@ static NSString * const keyPrefix = @"kL360EventTracker";
 
 - (void)dealloc
 {
-//    [self tearDownObservation];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -198,53 +192,50 @@ static NSString * const keyPrefix = @"kL360EventTracker";
 
 - (void)triggerEvent:(NSString *)event
 {
-    L360EventObject *eventObject = [self eventObjectForEvent:event];
-    
-    if (eventObject &&
-        [eventObject.value isKindOfClass:[NSNumber class]]) {
-        eventObject.value = @(((NSNumber *)eventObject.value).integerValue + 1);
+    // Add the trigger to a serial operation queue to run on another thread
+    // This is necessary because the main flow of logic (and it could get expensive) is run
+    // On this calling thread and it could be the main thread and halt animations and graphics
+    // While this is running.
+    __weak L360EventTracker *weakSelf = self;
+    [_serialOperationQueue addOperationWithBlock:^{
+        L360EventObject *eventObject = [weakSelf eventObjectForEvent:event];
         
-        [self eventObjectDidChange:eventObject];
-    }
+        if (eventObject &&
+            [eventObject.value isKindOfClass:[NSNumber class]]) {
+            eventObject.value = @(((NSNumber *)eventObject.value).integerValue + 1);
+            
+            [weakSelf eventObjectDidChange:eventObject];
+        }
+    }];
 }
 
 - (void)setEvent:(NSString *)event withValue:(id)value
 {
-    L360EventObject *eventObject = [self eventObjectForEvent:event];
-    
-    if (eventObject) {
-        eventObject.value = value;
+    // Add the trigger to a serial operation queue to run on another thread
+    // This is necessary because the main flow of logic (and it could get expensive) is run
+    // On this calling thread and it could be the main thread and halt animations and graphics
+    // While this is running.
+    __weak L360EventTracker *weakSelf = self;
+    [_serialOperationQueue addOperationWithBlock:^{
+        L360EventObject *eventObject = [weakSelf eventObjectForEvent:event];
         
-        [self eventObjectDidChange:eventObject];
+        if (eventObject) {
+            eventObject.value = value;
+            
+            [weakSelf eventObjectDidChange:eventObject];
+        }
+    }];
+}
+
+- (void)resetEvents
+{
+    // Need to reset the Instance scoped events
+    // Don't trigger the event for this change of value though
+    for (L360EventObject *eventObject in _eventObjects) {
+        if (eventObject.scope == L360EventTrackerScopeInstance) {
+            eventObject.value = eventObject.initialValue;
+        }
     }
-}
-
-- (NSArray *)executionObjects
-{
-    return _executionObjects.copy;
-}
-
-- (void)resetEventsForLogout
-{
-    // If user has logged out then
-    [self setEvent:EVENT_START_NEW_SESSION withValue:@(1)];
-    [self setEvent:EVENT_START_NEW_INSTANCE withValue:@(1)];
-    
-    [self setEvent:EVENT_ALL_PLACES_UPDATED withValue:@(0)];
-    [self setEvent:EVENT_ALL_CIRCLES_UPDATED withValue:@(0)];
-    [self setEvent:EVENT_MAP_HAS_BEEN_DISPLAYED withValue:@(0)];
-    [self setEvent:EVENT_CIRCLE_HAS_CHANGED withValue:@(0)];
-    [self setEvent:EVENT_PROFILE_IMAGE_HAS_CHANGED withValue:@(0)];
-    [self setEvent:EVENT_HAS_JUST_FINISHED_ONBOARDING withValue:@(0)];
-    
-    [self setEvent:EVENT_DISPLAY_PROGRESS withValue:@(NO)];
-    [self setEvent:EVENT_HAS_DISPLAYED_PROGRESS withValue:@(YES)];
-    [self setEvent:EVENT_CIRCLES_WITH_COMPLETED_PROGRESS withValue:@[]];
-    
-    [self setEvent:EVENT_DISPLAY_MESSAGE_REMINDER withValue:@(NO)];
-    [self setEvent:EVENT_HAS_DISPLAYED_MESSAGE_REMINDER withValue:@(NO)];
-    
-    [_executionObjects removeAllObjects];
 }
 
 #pragma mark -
@@ -303,7 +294,15 @@ static NSString * const keyPrefix = @"kL360EventTracker";
                                                          keepAlive:keepAlive];
     
     // And then evaluate it with the first eventName in the list
-    [self validateAndExecuteObject:executionObject forEvent:eventNames.firstObject];
+    
+    // Add the trigger to a serial operation queue to run on another thread
+    // This is necessary because the main flow of logic (and it could get expensive) is run
+    // On this calling thread and it could be the main thread and halt animations and graphics
+    // While this is running.
+    __weak L360EventTracker *weakSelf = self;
+    [_serialOperationQueue addOperationWithBlock:^{
+        [weakSelf validateAndExecuteObject:executionObject forEvent:eventNames.firstObject];
+    }];
 }
 
 #pragma mark Private Helpers
@@ -333,10 +332,12 @@ static NSString * const keyPrefix = @"kL360EventTracker";
 
 - (void)validateAndExecuteObject:(L360ExecutionObject *)executionObject forEvent:(NSString *)eventName
 {
-    NSLock *lock = [[NSLock alloc] init];
-    [lock lock]; {
-        // First validate the block and if valid then execute it
-        if (executionObject.validationBlock) {
+    // First validate the block and if valid then execute it
+    if (executionObject.validationBlock) {
+        // This is executing inside the OperationQueue and so need to dispatch to main thread for
+        __weak L360EventTracker *weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^(void)
+        {
             BOOL validated = executionObject.validationBlock(eventName, self);
             
             // Run the execution if validated
@@ -345,101 +346,18 @@ static NSString * const keyPrefix = @"kL360EventTracker";
                 
                 // Remove the block from the stack
                 if (!executionObject.keepAlive) {
-                    [_executionObjects removeObject:executionObject];
+                    [weakSelf.executionObjects removeObject:executionObject];
                 }
             }
-        }
-    } [lock unlock];
-}
-
-#pragma mark -
-#pragma mark User Defaults Store
-
-// These run through all the properties in this class (private and public) and creates an userDefaults for each property (with a keyPrefix appended to it)
-// As well as KVO those properties so that any change will be updated onto the userDefaults.
-
-// This is unfortunately the only MANUAL PART of this process. You need to add the string version of your property and the initial state for this to
-// initialize the userDefaults properly
-- (void)setupDefaults
-{
-    // Add newer properties into this dictionary with the initial state
-    NSDictionary *defaultDictionary = @{[keyPrefix stringByAppendingString:EVENT_DISPLAY_PROGRESS] : @(NO),
-                                        [keyPrefix stringByAppendingString:EVENT_ALL_CIRCLES_UPDATED] : @(0),
-                                        [keyPrefix stringByAppendingString:EVENT_ALL_PLACES_UPDATED] : @(0),
-                                        [keyPrefix stringByAppendingString:EVENT_CIRCLE_HAS_CHANGED] : @(0),
-                                        [keyPrefix stringByAppendingString:EVENT_MAP_HAS_BEEN_DISPLAYED] : @(0),
-                                        [keyPrefix stringByAppendingString:EVENT_START_NEW_SESSION] : @(0),
-                                        [keyPrefix stringByAppendingString:EVENT_HAS_JUST_FINISHED_ONBOARDING] : @(NO),
-                                        [keyPrefix stringByAppendingString:EVENT_START_NEW_INSTANCE] : @(0),
-                                        [keyPrefix stringByAppendingString:EVENT_HAS_DISPLAYED_PROGRESS] : @(YES), // Initialize this to YES because this works differently to support older users
-                                        [keyPrefix stringByAppendingString:EVENT_DISPLAY_MESSAGE_REMINDER] : @(NO),
-                                        [keyPrefix stringByAppendingString:EVENT_HAS_DISPLAYED_MESSAGE_REMINDER] : @(NO),
-                                        [keyPrefix stringByAppendingString:EVENT_CIRCLES_WITH_COMPLETED_PROGRESS] : @[],
-                                        [keyPrefix stringByAppendingString:EVENT_PROFILE_IMAGE_HAS_CHANGED] : @(0),
-                                        };
-    
-    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultDictionary];
-}
-
-- (void)setupPropertiesFromDefaults
-{
-    uint count;
-    objc_property_t *propertyList = class_copyPropertyList([self class], &count);
-    for (int i = 0; i < count; i++) {
-        NSString *name = [NSString stringWithUTF8String:property_getName(propertyList[i])];
-        [self setValue:[[NSUserDefaults standardUserDefaults] objectForKey:[keyPrefix stringByAppendingString:name]] forKey:name];
+        });
     }
-    free(propertyList);
-}
-
-- (void)setupPropertyObservation
-{
-    uint count;
-    objc_property_t *propertyList = class_copyPropertyList([self class], &count);
-    for (int i = 0; i < count; i++) {
-        NSString *name = [NSString stringWithUTF8String:property_getName(propertyList[i])];
-        [self addObserver:self forKeyPath:name options:NSKeyValueObservingOptionNew context:NULL];
-    }
-    free(propertyList);
-}
-
-- (void)tearDownObservation
-{
-    uint count;
-    objc_property_t *propertyList = class_copyPropertyList([self class], &count);
-    for (int i = 0; i < count; i++) {
-        NSString *name = [NSString stringWithUTF8String:property_getName(propertyList[i])];
-        [self removeObserver:self forKeyPath:name];
-    }
-    free(propertyList);
-}
-
-#pragma mark -
-#pragma mark KVO
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    id newValue = change[NSKeyValueChangeNewKey];
-    
-    [self evaluateObjectsForEvent:keyPath];
-    
-    // Update the userDefaults with the prefixedPropertyName with the newValue
-    NSString *prefixedPropertyName = [keyPrefix stringByAppendingString:keyPath];
-    [[NSUserDefaults standardUserDefaults] setObject:newValue forKey:prefixedPropertyName];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark Notifications
 
 - (void)appWillResignActive
 {
-    // Need to reset the Instance scoped events
-    // Don't trigger the event for this change of value though
-    for (L360EventObject *eventObject in _eventObjects) {
-        if (eventObject.scope == L360EventTrackerScopeInstance) {
-            eventObject.value = eventObject.initialValue;
-        }
-    }
+    [self resetEvents];
 }
 
 @end

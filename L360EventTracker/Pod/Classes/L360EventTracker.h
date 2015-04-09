@@ -12,27 +12,13 @@
 
 typedef NS_ENUM(NSInteger, L360EventTrackerScope)
 {
-    L360EventTrackerScopeInstance, // These events will reset on app background
-    L360EventTrackerScopeSession, // These events will reset on app kill
-    L360EventTrackerScopeApp, // These events will only reset on app uninstall
+    L360EventTrackerScopeInstance,  // These events will reset on app background
+    L360EventTrackerScopeSession,   // These events will reset on app kill
+    L360EventTrackerScopeApp,       // These events will only reset on app uninstall
 };
 
 typedef BOOL (^L360EventTrackerValidationBlock)(NSString *triggerEvent, L360EventTracker *tracker);
 typedef void (^L360EventTrackerExecutionBlock)(NSString *triggerEvent, L360EventTracker *tracker);
-
-static NSString *const EVENT_START_NEW_SESSION = @"startNewSession";
-static NSString *const EVENT_DISPLAY_PROGRESS = @"displayProgress";
-static NSString *const EVENT_HAS_DISPLAYED_PROGRESS = @"hasDisplayedProgress";
-static NSString *const EVENT_CIRCLES_WITH_COMPLETED_PROGRESS = @"circlesWithCompletedProgress";
-static NSString *const EVENT_DISPLAY_MESSAGE_REMINDER = @"displayMessageReminder";
-static NSString *const EVENT_HAS_DISPLAYED_MESSAGE_REMINDER = @"hasDisplayedMessageReminder";
-static NSString *const EVENT_ALL_PLACES_UPDATED = @"allPlacesUpdated";
-static NSString *const EVENT_ALL_CIRCLES_UPDATED = @"allCirclesUpdated";
-static NSString *const EVENT_START_NEW_INSTANCE = @"startNewInstance";
-static NSString *const EVENT_MAP_HAS_BEEN_DISPLAYED = @"mapHasBeenDisplayed";
-static NSString *const EVENT_CIRCLE_HAS_CHANGED = @"circleHasChanged";
-static NSString *const EVENT_PROFILE_IMAGE_HAS_CHANGED = @"profileImageHasChanged";
-static NSString *const EVENT_HAS_JUST_FINISHED_ONBOARDING = @"hasJustFinishedOnboarding";
 
 @interface L360EventTracker : NSObject
 
@@ -48,6 +34,10 @@ static NSString *const EVENT_HAS_JUST_FINISHED_ONBOARDING = @"hasJustFinishedOnb
 /**
  *  This will increment the value of the event by 1 IFF it's an NSNumber and its registered.
  *  Otherwise it will not do anything
+ *  CONCURRENCY NOTE: The triggers will execute on a serial operation Queue that runs on background threads
+ *                    The evaluation blocks and execution blocks will be executed in the main thread.
+ *                    If the same event is triggered simultaneously, it's ambiguous on whether the execution will run
+ *                      once or multiple times even if keepAlive was no when registering the Event Execution
  */
 - (void)triggerEvent:(NSString *)event;
 
@@ -56,6 +46,11 @@ static NSString *const EVENT_HAS_JUST_FINISHED_ONBOARDING = @"hasJustFinishedOnb
  */
 - (void)setEvent:(NSString *)event withValue:(id)value;
 
+/**
+ *  This will reset all the metrics to their initially value
+ */
+- (void)resetEvents;
+
 #pragma mark Event Value Getters
 
 - (NSInteger)integerValueForEvent:(NSString *)event;
@@ -63,25 +58,15 @@ static NSString *const EVENT_HAS_JUST_FINISHED_ONBOARDING = @"hasJustFinishedOnb
 - (NSArray *)arrayValueForEvent:(NSString *)event;
 - (NSDictionary *)dictionaryValueForEvent:(NSString *)event;
 
-/**
- *  Return a copy of the list of executionObjects
- *  (but the objects within are the real objects so careful what you change!)
- */
-- (NSArray *)executionObjects;
-
-/**
- *  This will reset all the metrics to a proper logout state. As if the user just downloaded it and is fresh in the app
- */
-- (void)resetEventsForLogout;
+#pragma mark Event Execution
 
 /**
  *  Register execution blocks to be evaluated and fired once for the events it listens for
  *  If an execution object exists with the same executionID, this will replace it
  *
- *  @param executionBlock   Block of code to be executed
+ *  @param executionBlock   Block of code to be executed (on main thread)
  *  @param executionID      Id by which it can be identified for removal later if need be
- *  @param validationBlock  Block that should return a BOOL that is determined every time any of the events below is changed
- *                          TODO: I wonder if we could use NSPredicate instead so that users don't have to access the actual properties to do logic on.
+ *  @param validationBlock  Block that should return a BOOL that is determined every time any of the events below is changed (this will be executed on main thread)
  *  @param eventNames       These are a list of events by which the validationBlock will be evaluated
  *  @param keepAlive        Keeps this execution alive so it will never leave the system.
  *
