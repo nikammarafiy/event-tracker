@@ -1,0 +1,580 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CBE3378E56C7E1AC0608EFC5 /* Pods-Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BDBED7B9BC4844817918DA9D /* Pods-Tests-dummy.m */; };
+		F7E2DA428AFC3F8E5FA9D115 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF9EB8045901F2737A4E5A4 /* Foundation.framework */; };
+		F8DBAB81361D3AE55C801CAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF9EB8045901F2737A4E5A4 /* Foundation.framework */; };
+		F910453AE3F1D24C32E5E86F /* Pods-L360EventTracker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AA03CC43881663B6D96101 /* Pods-L360EventTracker-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D1BB1D90CFC1C43873142717 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5DB924C401CC09A24F20FE80 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B0F3C7AA308C57ECA205EBE;
+			remoteInfo = "Pods-L360EventTracker-L360EventTracker-L360EventTracker";
+		};
+		F0DCC85E02589ECBB2EC9337 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5DB924C401CC09A24F20FE80 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8B43FBA2DB1E937921CB4F24;
+			remoteInfo = "Pods-Tests-L360EventTracker-L360EventTracker";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0EB470B24AF778206A974FFC /* Pods-L360EventTracker-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-L360EventTracker-environment.h"; sourceTree = "<group>"; };
+		17AA03CC43881663B6D96101 /* Pods-L360EventTracker-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-L360EventTracker-dummy.m"; sourceTree = "<group>"; };
+		2C18F4223F31C0A72088C561 /* Pods-Tests-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Tests-environment.h"; sourceTree = "<group>"; };
+		3BCA9B8A1FC154CB0D6CF5F8 /* Pods-Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-resources.sh"; sourceTree = "<group>"; };
+		46A37336F205B017045BCD38 /* Pods-L360EventTracker-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-L360EventTracker-acknowledgements.plist"; sourceTree = "<group>"; };
+		4E191C8D57E8925CA1B9A86B /* Pods-Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		513343FF48C5402748BF7151 /* L360EventTracker.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = L360EventTracker.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BF9EB8045901F2737A4E5A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		624EA745B38F4FBF2392F1C4 /* libPods-L360EventTracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-L360EventTracker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		97B9213D558BD678C3694994 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		98BB91F5D1A1B81E57A40EF2 /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		A97F3F7C8825B70D94F65ED0 /* Pods-L360EventTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-L360EventTracker.debug.xcconfig"; sourceTree = "<group>"; };
+		B590195727ECAF92972B2F36 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
+		B9F315B3D101508A49EBB196 /* Pods-L360EventTracker-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-L360EventTracker-acknowledgements.markdown"; sourceTree = "<group>"; };
+		BDBED7B9BC4844817918DA9D /* Pods-Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tests-dummy.m"; sourceTree = "<group>"; };
+		BF2BE3D514B7AA941D797909 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF4326FD4F2055182AB6FF33 /* Pods-L360EventTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-L360EventTracker.release.xcconfig"; sourceTree = "<group>"; };
+		CC5D698588575DD1A6545448 /* L360EventTracker.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = L360EventTracker.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD813115980B3BCE67DD38A4 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		E525970B7534EEC37CE5E553 /* Pods-L360EventTracker-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-L360EventTracker-resources.sh"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		19DB356320D9D40C72B0AC9E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D4572B7197D4CC365326099 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7E2DA428AFC3F8E5FA9D115 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		366FCA421A0F10169E260B63 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2150194ECBE5AE4776EB646 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8DBAB81361D3AE55C801CAF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2A7BC4F5D6EE06EEE58A248E /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				E6BE853ECAAD57E2C2BFC289 /* Pods-L360EventTracker */,
+				36CEEE3974242E027702B212 /* Pods-Tests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		36CEEE3974242E027702B212 /* Pods-Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4E191C8D57E8925CA1B9A86B /* Pods-Tests-acknowledgements.markdown */,
+				98BB91F5D1A1B81E57A40EF2 /* Pods-Tests-acknowledgements.plist */,
+				BDBED7B9BC4844817918DA9D /* Pods-Tests-dummy.m */,
+				2C18F4223F31C0A72088C561 /* Pods-Tests-environment.h */,
+				3BCA9B8A1FC154CB0D6CF5F8 /* Pods-Tests-resources.sh */,
+				CD813115980B3BCE67DD38A4 /* Pods-Tests.debug.xcconfig */,
+				B590195727ECAF92972B2F36 /* Pods-Tests.release.xcconfig */,
+			);
+			name = "Pods-Tests";
+			path = "Target Support Files/Pods-Tests";
+			sourceTree = "<group>";
+		};
+		3DA0CD59581CFF94A8D50CA8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				513343FF48C5402748BF7151 /* L360EventTracker.bundle */,
+				CC5D698588575DD1A6545448 /* L360EventTracker.bundle */,
+				624EA745B38F4FBF2392F1C4 /* libPods-L360EventTracker.a */,
+				BF2BE3D514B7AA941D797909 /* libPods-Tests.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		88D10ECDE3DA15407F723DF6 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				5BF9EB8045901F2737A4E5A4 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		8D4101E95C98FC5654923185 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				88D10ECDE3DA15407F723DF6 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		994EEA8B082E414467FE1435 = {
+			isa = PBXGroup;
+			children = (
+				97B9213D558BD678C3694994 /* Podfile */,
+				9D6667870E98D1A8F251B031 /* Development Pods */,
+				8D4101E95C98FC5654923185 /* Frameworks */,
+				3DA0CD59581CFF94A8D50CA8 /* Products */,
+				2A7BC4F5D6EE06EEE58A248E /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		9D6667870E98D1A8F251B031 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E558550FF19A46ED34A74F4D /* L360EventTracker */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		E558550FF19A46ED34A74F4D /* L360EventTracker */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = L360EventTracker;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		E6BE853ECAAD57E2C2BFC289 /* Pods-L360EventTracker */ = {
+			isa = PBXGroup;
+			children = (
+				B9F315B3D101508A49EBB196 /* Pods-L360EventTracker-acknowledgements.markdown */,
+				46A37336F205B017045BCD38 /* Pods-L360EventTracker-acknowledgements.plist */,
+				17AA03CC43881663B6D96101 /* Pods-L360EventTracker-dummy.m */,
+				0EB470B24AF778206A974FFC /* Pods-L360EventTracker-environment.h */,
+				E525970B7534EEC37CE5E553 /* Pods-L360EventTracker-resources.sh */,
+				A97F3F7C8825B70D94F65ED0 /* Pods-L360EventTracker.debug.xcconfig */,
+				BF4326FD4F2055182AB6FF33 /* Pods-L360EventTracker.release.xcconfig */,
+			);
+			name = "Pods-L360EventTracker";
+			path = "Target Support Files/Pods-L360EventTracker";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4438E9F1E5E95250BF70C51A /* Pods-L360EventTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D48CD8E209C27A7D77DF268 /* Build configuration list for PBXNativeTarget "Pods-L360EventTracker" */;
+			buildPhases = (
+				2B594C74E95A4E6EE6DEEF2D /* Sources */,
+				E2150194ECBE5AE4776EB646 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				11855B9291CD8228B884D88E /* PBXTargetDependency */,
+			);
+			name = "Pods-L360EventTracker";
+			productName = "Pods-L360EventTracker";
+			productReference = 624EA745B38F4FBF2392F1C4 /* libPods-L360EventTracker.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		7B0F3C7AA308C57ECA205EBE /* Pods-L360EventTracker-L360EventTracker-L360EventTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 498D485735F9535171091F0F /* Build configuration list for PBXNativeTarget "Pods-L360EventTracker-L360EventTracker-L360EventTracker" */;
+			buildPhases = (
+				BE9E81551197CD4764D1EC75 /* Sources */,
+				19DB356320D9D40C72B0AC9E /* Frameworks */,
+				149C0031941E7D5B62F9E5A5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-L360EventTracker-L360EventTracker-L360EventTracker";
+			productName = "Pods-L360EventTracker-L360EventTracker-L360EventTracker";
+			productReference = 513343FF48C5402748BF7151 /* L360EventTracker.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		8B43FBA2DB1E937921CB4F24 /* Pods-Tests-L360EventTracker-L360EventTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD8E396C32B461331769F88D /* Build configuration list for PBXNativeTarget "Pods-Tests-L360EventTracker-L360EventTracker" */;
+			buildPhases = (
+				1EFE9FE85BE2900FE493341D /* Sources */,
+				366FCA421A0F10169E260B63 /* Frameworks */,
+				B6535D62D2EE842B96246B00 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-Tests-L360EventTracker-L360EventTracker";
+			productName = "Pods-Tests-L360EventTracker-L360EventTracker";
+			productReference = CC5D698588575DD1A6545448 /* L360EventTracker.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		E616E1A11811355304A03F9F /* Pods-Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29159E6B75AFEF6192FAA5D1 /* Build configuration list for PBXNativeTarget "Pods-Tests" */;
+			buildPhases = (
+				9A1CA8E162F43D1DA5E94E63 /* Sources */,
+				2D4572B7197D4CC365326099 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A372E93ACD0096F99835CF70 /* PBXTargetDependency */,
+			);
+			name = "Pods-Tests";
+			productName = "Pods-Tests";
+			productReference = BF2BE3D514B7AA941D797909 /* libPods-Tests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5DB924C401CC09A24F20FE80 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+			};
+			buildConfigurationList = 3268614703EFA8BC00F1523A /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 994EEA8B082E414467FE1435;
+			productRefGroup = 3DA0CD59581CFF94A8D50CA8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4438E9F1E5E95250BF70C51A /* Pods-L360EventTracker */,
+				7B0F3C7AA308C57ECA205EBE /* Pods-L360EventTracker-L360EventTracker-L360EventTracker */,
+				E616E1A11811355304A03F9F /* Pods-Tests */,
+				8B43FBA2DB1E937921CB4F24 /* Pods-Tests-L360EventTracker-L360EventTracker */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		149C0031941E7D5B62F9E5A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6535D62D2EE842B96246B00 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1EFE9FE85BE2900FE493341D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2B594C74E95A4E6EE6DEEF2D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F910453AE3F1D24C32E5E86F /* Pods-L360EventTracker-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A1CA8E162F43D1DA5E94E63 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBE3378E56C7E1AC0608EFC5 /* Pods-Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE9E81551197CD4764D1EC75 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		11855B9291CD8228B884D88E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-L360EventTracker-L360EventTracker-L360EventTracker";
+			target = 7B0F3C7AA308C57ECA205EBE /* Pods-L360EventTracker-L360EventTracker-L360EventTracker */;
+			targetProxy = D1BB1D90CFC1C43873142717 /* PBXContainerItemProxy */;
+		};
+		A372E93ACD0096F99835CF70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-Tests-L360EventTracker-L360EventTracker";
+			target = 8B43FBA2DB1E937921CB4F24 /* Pods-Tests-L360EventTracker-L360EventTracker */;
+			targetProxy = F0DCC85E02589ECBB2EC9337 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		23F876E560323395E3134691 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF4326FD4F2055182AB6FF33 /* Pods-L360EventTracker.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		37182CEA703C6B70CCE5790A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = L360EventTracker;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		455E3066470BC440A4580ABC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4C8CD49D972CEBE3984E1C3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = L360EventTracker;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		7131230533D3376440469CFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = L360EventTracker;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		7A9259A55CEE53AA8EB66ED4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		7F53E0EDC7DD9E562D5EB1D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD813115980B3BCE67DD38A4 /* Pods-Tests.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8019D67A32BFE38D0021D3D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A97F3F7C8825B70D94F65ED0 /* Pods-L360EventTracker.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		889A253297D603189EE3CA12 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = L360EventTracker;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		FF49C30779547A2483DCB8ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B590195727ECAF92972B2F36 /* Pods-Tests.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		29159E6B75AFEF6192FAA5D1 /* Build configuration list for PBXNativeTarget "Pods-Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F53E0EDC7DD9E562D5EB1D4 /* Debug */,
+				FF49C30779547A2483DCB8ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3268614703EFA8BC00F1523A /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A9259A55CEE53AA8EB66ED4 /* Debug */,
+				455E3066470BC440A4580ABC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		498D485735F9535171091F0F /* Build configuration list for PBXNativeTarget "Pods-L360EventTracker-L360EventTracker-L360EventTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				889A253297D603189EE3CA12 /* Debug */,
+				7131230533D3376440469CFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8D48CD8E209C27A7D77DF268 /* Build configuration list for PBXNativeTarget "Pods-L360EventTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8019D67A32BFE38D0021D3D0 /* Debug */,
+				23F876E560323395E3134691 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD8E396C32B461331769F88D /* Build configuration list for PBXNativeTarget "Pods-Tests-L360EventTracker-L360EventTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37182CEA703C6B70CCE5790A /* Debug */,
+				4C8CD49D972CEBE3984E1C3F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5DB924C401CC09A24F20FE80 /* Project object */;
+}
