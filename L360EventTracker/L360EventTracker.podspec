@@ -22,13 +22,12 @@ Pod::Spec.new do |s|
   s.license          = { :type => "Apache License, Version 2.0", :file => "LICENSE.md" }
   s.author           = { "Mohammed Islam" => "mohammed@life360.com" }
   s.source           = { :git => "https://github.com/life360/event-tracker.git", :tag => s.version.to_s }
-  s.source_files     = "L360EventTracker"
 # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform         = :ios, '7.0'
   s.requires_arc     = true
 
-  s.source_files     = 'Pod/Classes/**/*'
+  s.source_files     = 'Pod/Classes'
   s.resource_bundles = {
     'L360EventTracker' => ['Pod/Assets/*.png']
   }
