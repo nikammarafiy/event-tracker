@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "L360EventTracker.h"
 
 @interface ViewController ()
 
@@ -22,6 +23,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)buttonAction:(id)sender
+{
+    [[L360EventTracker sharedInstance] triggerEvent:@"buttonTapCount"];
 }
 
 @end

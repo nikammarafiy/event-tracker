@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Life360. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "L360EventTracker.h"
 #import "L360ExecutionObject.h"
 #import "L360EventObject.h"

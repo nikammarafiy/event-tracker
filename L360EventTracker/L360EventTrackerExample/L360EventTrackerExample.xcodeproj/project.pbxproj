@@ -14,6 +14,9 @@
 		CD90C1131AD75081007566E3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD90C1121AD75081007566E3 /* Images.xcassets */; };
 		CD90C1161AD75081007566E3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD90C1141AD75081007566E3 /* LaunchScreen.xib */; };
 		CD90C1221AD75081007566E3 /* L360EventTrackerExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD90C1211AD75081007566E3 /* L360EventTrackerExampleTests.m */; };
+		CD90C13C1AD88D89007566E3 /* L360EventObject.m in Sources */ = {isa = PBXBuildFile; fileRef = CD90C1371AD88D89007566E3 /* L360EventObject.m */; };
+		CD90C13D1AD88D89007566E3 /* L360EventTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = CD90C1391AD88D89007566E3 /* L360EventTracker.m */; };
+		CD90C13E1AD88D89007566E3 /* L360ExecutionObject.m in Sources */ = {isa = PBXBuildFile; fileRef = CD90C13B1AD88D89007566E3 /* L360ExecutionObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5CC972739C69AEC136ED34FF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD90C1021AD75081007566E3 /* L360EventTrackerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = L360EventTrackerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD90C1061AD75081007566E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD90C1071AD75081007566E3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -40,6 +44,12 @@
 		CD90C11B1AD75081007566E3 /* L360EventTrackerExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = L360EventTrackerExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD90C1201AD75081007566E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD90C1211AD75081007566E3 /* L360EventTrackerExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = L360EventTrackerExampleTests.m; sourceTree = "<group>"; };
+		CD90C1361AD88D89007566E3 /* L360EventObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L360EventObject.h; sourceTree = "<group>"; };
+		CD90C1371AD88D89007566E3 /* L360EventObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L360EventObject.m; sourceTree = "<group>"; };
+		CD90C1381AD88D89007566E3 /* L360EventTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L360EventTracker.h; sourceTree = "<group>"; };
+		CD90C1391AD88D89007566E3 /* L360EventTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L360EventTracker.m; sourceTree = "<group>"; };
+		CD90C13A1AD88D89007566E3 /* L360ExecutionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L360ExecutionObject.h; sourceTree = "<group>"; };
+		CD90C13B1AD88D89007566E3 /* L360ExecutionObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L360ExecutionObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +76,7 @@
 				CD90C1041AD75081007566E3 /* L360EventTrackerExample */,
 				CD90C11E1AD75081007566E3 /* L360EventTrackerExampleTests */,
 				CD90C1031AD75081007566E3 /* Products */,
+				D7954348C12602D1ED67D790 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,6 +92,7 @@
 		CD90C1041AD75081007566E3 /* L360EventTrackerExample */ = {
 			isa = PBXGroup;
 			children = (
+				CD90C1351AD88D89007566E3 /* Classes */,
 				CD90C1091AD75081007566E3 /* AppDelegate.h */,
 				CD90C10A1AD75081007566E3 /* AppDelegate.m */,
 				CD90C10C1AD75081007566E3 /* ViewController.h */,
@@ -117,6 +129,28 @@
 				CD90C1201AD75081007566E3 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CD90C1351AD88D89007566E3 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				CD90C1361AD88D89007566E3 /* L360EventObject.h */,
+				CD90C1371AD88D89007566E3 /* L360EventObject.m */,
+				CD90C1381AD88D89007566E3 /* L360EventTracker.h */,
+				CD90C1391AD88D89007566E3 /* L360EventTracker.m */,
+				CD90C13A1AD88D89007566E3 /* L360ExecutionObject.h */,
+				CD90C13B1AD88D89007566E3 /* L360ExecutionObject.m */,
+			);
+			name = Classes;
+			path = ../../Classes;
+			sourceTree = "<group>";
+		};
+		D7954348C12602D1ED67D790 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5CC972739C69AEC136ED34FF /* libPods.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,9 +253,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD90C13E1AD88D89007566E3 /* L360ExecutionObject.m in Sources */,
 				CD90C10E1AD75081007566E3 /* ViewController.m in Sources */,
 				CD90C10B1AD75081007566E3 /* AppDelegate.m in Sources */,
+				CD90C13C1AD88D89007566E3 /* L360EventObject.m in Sources */,
 				CD90C1081AD75081007566E3 /* main.m in Sources */,
+				CD90C13D1AD88D89007566E3 /* L360EventTracker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +449,7 @@
 				CD90C1271AD75081007566E3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CD90C1281AD75081007566E3 /* Build configuration list for PBXNativeTarget "L360EventTrackerExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +458,7 @@
 				CD90C12A1AD75081007566E3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
