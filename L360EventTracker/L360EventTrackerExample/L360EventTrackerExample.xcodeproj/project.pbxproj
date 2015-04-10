@@ -30,7 +30,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5CC972739C69AEC136ED34FF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD90C1021AD75081007566E3 /* L360EventTrackerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = L360EventTrackerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD90C1061AD75081007566E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD90C1071AD75081007566E3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -148,7 +147,6 @@
 		D7954348C12602D1ED67D790 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5CC972739C69AEC136ED34FF /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

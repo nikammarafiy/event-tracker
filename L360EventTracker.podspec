@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
 
   s.source_files     = 'L360EventTracker/Classes'
 
-# s.frameworks = 'UIKit'
+  s.frameworks       = 'UIKit'
 # s.dependency 'AFNetworking', '~> 2.3'
 end
