@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.platform         = :ios, '7.0'
   s.requires_arc     = true
 
-  s.source_files     = 'L360EventTracker/Pod/Classes/*.{h,m}'
+  s.source_files     = 'L360EventTracker/Classes'
 
 # s.frameworks = 'UIKit'
 # s.dependency 'AFNetworking', '~> 2.3'
