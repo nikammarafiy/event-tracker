@@ -47,9 +47,15 @@ typedef void (^L360EventTrackerExecutionBlock)(NSString *triggerEvent, L360Event
 - (void)setEvent:(NSString *)event withValue:(id)value;
 
 /**
- *  This will reset all the metrics to their initially value
+ *  This will reset all the events to their initially value
+ *  This will NOT trigger any of the events
  */
 - (void)resetEvents;
+
+/**
+ *  This will reset the event to its initially value (without triggering the event)
+ */
+- (void)resetEvent:(NSString *)event;
 
 #pragma mark Event Value Getters
 

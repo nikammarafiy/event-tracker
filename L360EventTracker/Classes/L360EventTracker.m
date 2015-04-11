@@ -110,14 +110,7 @@ static NSString * const keyPrefix = @"kL360EventTracker";
 
 - (void)eventObjectDidChange:(L360EventObject *)eventObject
 {
-    // If event's scope is app level, update userdefaults
-    if (eventObject.scope == L360EventTrackerScopeApp) {
-        [[NSUserDefaults standardUserDefaults] setObject:eventObject.value
-                                                  forKey:[keyPrefix stringByAppendingString:eventObject.event]];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    
-    // Then see if we need to execute anything that's listening on this event
+    // See if we need to execute anything that's listening on this event
     // First we need to find all the executionObjects that are listening to this device
     // TODO: Later maybe this can be optimized into a hash table or something. But right now this piece of code doesn't happen often enough to warrant it
     NSMutableArray *objectsToValidate = [NSMutableArray array];
@@ -205,6 +198,13 @@ static NSString * const keyPrefix = @"kL360EventTracker";
             [eventObject.value isKindOfClass:[NSNumber class]]) {
             eventObject.value = @(((NSNumber *)eventObject.value).integerValue + 1);
             
+            // If event's scope is app level, update userdefaults
+            if (eventObject.scope == L360EventTrackerScopeApp) {
+                [[NSUserDefaults standardUserDefaults] setObject:eventObject.value
+                                                          forKey:[keyPrefix stringByAppendingString:eventObject.event]];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+            
             [weakSelf eventObjectDidChange:eventObject];
         }
     }];
@@ -223,6 +223,13 @@ static NSString * const keyPrefix = @"kL360EventTracker";
         if (eventObject) {
             eventObject.value = value;
             
+            // If event's scope is app level, update userdefaults
+            if (eventObject.scope == L360EventTrackerScopeApp) {
+                [[NSUserDefaults standardUserDefaults] setObject:eventObject.value
+                                                          forKey:[keyPrefix stringByAppendingString:eventObject.event]];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+            
             [weakSelf eventObjectDidChange:eventObject];
         }
     }];
@@ -233,8 +240,29 @@ static NSString * const keyPrefix = @"kL360EventTracker";
     // Need to reset the Instance scoped events
     // Don't trigger the event for this change of value though
     for (L360EventObject *eventObject in _eventObjects) {
-        if (eventObject.scope == L360EventTrackerScopeInstance) {
-            eventObject.value = eventObject.initialValue;
+        eventObject.value = eventObject.initialValue;
+        
+        // If event's scope is app level, update userdefaults
+        if (eventObject.scope == L360EventTrackerScopeApp) {
+            [[NSUserDefaults standardUserDefaults] setObject:eventObject.value
+                                                      forKey:[keyPrefix stringByAppendingString:eventObject.event]];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+}
+
+- (void)resetEvent:(NSString *)event
+{
+    L360EventObject *eventObject = [self eventObjectForEvent:event];
+    
+    if (eventObject) {
+        eventObject.value = eventObject.initialValue;
+        
+        // If event's scope is app level, update userdefaults
+        if (eventObject.scope == L360EventTrackerScopeApp) {
+            [[NSUserDefaults standardUserDefaults] setObject:eventObject.value
+                                                      forKey:[keyPrefix stringByAppendingString:eventObject.event]];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }
     }
 }
