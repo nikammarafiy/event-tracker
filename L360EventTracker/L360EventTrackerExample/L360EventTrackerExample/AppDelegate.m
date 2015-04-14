@@ -63,6 +63,8 @@
         NSInteger backgroundedCount = [tracker integerValueForEvent:@"backgroundedCount"];
         NSInteger buttonTapCount = [tracker integerValueForEvent:@"buttonTapCount"];
         
+        NSLog(@"backgrounded: %i, button tapped: %i", backgroundedCount, buttonTapCount);
+        
         if ([triggerEvent isEqualToString:@"buttonTapCount"]) {
             // If the user taps the button too many times without backgrounding, then just reset the value
             if (backgroundedCount == 1) {
@@ -81,13 +83,7 @@
             }
         }
     }
-#warning If send nil block for validated, treat it as True
-                                           whenValidated:^BOOL(NSString *triggerEvent, L360EventTracker *tracker) {
-                                               NSInteger backgroundedCount = [tracker integerValueForEvent:@"backgroundedCount"];
-                                               NSInteger buttonTapCount = [tracker integerValueForEvent:@"buttonTapCount"];
-                                               NSLog(@"backgrounded: %i, button tapped: %i", backgroundedCount, buttonTapCount);
-                                               return YES;
-                                           }
+                                           whenValidated:nil
                                          withExecutionID:@"alertActionRegulator"
                                        listeningToEvents:@[@"backgroundedCount", @"buttonTapCount"]
                                                keepAlive:YES

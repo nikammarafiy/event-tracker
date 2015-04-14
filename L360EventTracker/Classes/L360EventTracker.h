@@ -70,9 +70,9 @@ typedef void (^L360EventTrackerExecutionBlock)(NSString *triggerEvent, L360Event
  *  Register execution blocks to be evaluated and fired once for the events it listens for
  *  If an execution object exists with the same executionID, this will replace it
  *
- *  @param executionBlock   Block of code to be executed (on main thread)
+ *  @param executionBlock   Block of code to be executed (on main thread). Mandatory, cannot be nil
  *  @param executionID      Id by which it can be identified for removal later if need be
- *  @param validationBlock  Block that should return a BOOL that is determined every time any of the events below is changed (this will be executed on main thread)
+ *  @param validationBlock  Block that should return a BOOL that is determined every time any of the events below is changed (this will be executed on main thread). If nil, then default to YES
  *  @param eventNames       These are a list of events by which the validationBlock will be evaluated
  *  @param keepAlive        Keeps this execution alive so it will never leave the system.
  *  @param validateImmediately  This will also run the validation and execution (if validation returns YES)

@@ -343,25 +343,28 @@ static NSString * const keyPrefix = @"kL360EventTracker";
 
 - (void)validateAndExecuteObject:(L360ExecutionObject *)executionObject forEvent:(NSString *)eventName
 {
-    // First validate the block and if valid then execute it
-    if (executionObject.validationBlock) {
-        // This is executing inside the OperationQueue and so need to dispatch to main thread for
-        __weak L360EventTracker *weakSelf = self;
-        dispatch_async(dispatch_get_main_queue(), ^(void)
-        {
-            BOOL validated = executionObject.validationBlock(eventName, self);
+    // This is executing inside the OperationQueue and so need to dispatch to main thread for
+    __weak L360EventTracker *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^(void)
+    {
+        // First validate the block and if valid then execute it
+        // Default to YES if validationBlock is nil
+        BOOL validated = YES;
+        if (executionObject.validationBlock) {
+            validated = executionObject.validationBlock(eventName, self);
+        }
+        
+        // Run the execution if validated
+        if (validated &&
+            executionObject.executionBlock) {
+            executionObject.executionBlock(eventName, self);
             
-            // Run the execution if validated
-            if (validated && executionObject.executionBlock) {
-                executionObject.executionBlock(eventName, self);
-                
-                // Remove the block from the stack
-                if (!executionObject.keepAlive) {
-                    [weakSelf.executionObjects removeObject:executionObject];
-                }
+            // Remove the block from the stack
+            if (!executionObject.keepAlive) {
+                [weakSelf.executionObjects removeObject:executionObject];
             }
-        });
-    }
+        }
+    });
 }
 
 #pragma mark Notifications
