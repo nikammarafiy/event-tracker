@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+static NSString *const EVENT_BACKGROUND = @"event-background";
+static NSString *const EVENT_BUTTON_PRESS = @"event-button-press";
+
 @interface ViewController : UIViewController
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -25,10 +25,10 @@ Then Background the app
 Come back to the app
 Tap the button again twice</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghy-AC-9Cu">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghy-AC-9Cu" userLabel="btnButton">
                                 <rect key="frame" x="152" y="306" width="70" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="Lxx-Yu-5Uw"/>
@@ -40,17 +40,31 @@ Tap the button again twice</string>
                                     <action selector="buttonAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="QvC-BK-JoP"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDx-ox-woV" userLabel="lblStatus">
+                                <rect key="frame" x="16" y="369" width="343" height="278"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OqJ-LL-4Ur" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="Fm7-Wy-lDF"/>
                             <constraint firstAttribute="centerX" secondItem="ghy-AC-9Cu" secondAttribute="centerX" id="QV3-6r-80e"/>
                             <constraint firstItem="OqJ-LL-4Ur" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="41" id="Z6c-0o-niO"/>
+                            <constraint firstItem="YDx-ox-woV" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="cFe-eS-I9i"/>
                             <constraint firstItem="OqJ-LL-4Ur" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="fcy-xx-4up"/>
+                            <constraint firstItem="YDx-ox-woV" firstAttribute="top" secondItem="ghy-AC-9Cu" secondAttribute="bottom" constant="8" id="g7Y-Qp-vNj"/>
+                            <constraint firstItem="ghy-AC-9Cu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="OqJ-LL-4Ur" secondAttribute="bottom" id="ghs-21-gJz"/>
+                            <constraint firstItem="YDx-ox-woV" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="hM2-eE-Shi"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="YDx-ox-woV" secondAttribute="bottom" constant="20" id="n1g-tQ-esC"/>
                             <constraint firstAttribute="centerY" secondItem="ghy-AC-9Cu" secondAttribute="centerY" id="vJe-1z-7s1"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="lblStatus" destination="YDx-ox-woV" id="LCD-CD-JAV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
