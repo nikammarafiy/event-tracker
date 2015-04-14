@@ -270,17 +270,19 @@ static NSString * const keyPrefix = @"kL360EventTracker";
 #pragma mark -
 #pragma mark Event Execution
 
-- (L360ExecutionObject *)addExecutionBlock:(L360EventTrackerExecutionBlock)executionBlock
-                             whenValidated:(L360EventTrackerValidationBlock)validationBlock
-                           withExecutionID:(NSString *)executionID
-                         listeningToEvents:(NSArray *)eventNames
-                                 keepAlive:(BOOL)keepAlive
+- (void)addExecutionBlock:(L360EventTrackerExecutionBlock)executionBlock
+            whenValidated:(L360EventTrackerValidationBlock)validationBlock
+          withExecutionID:(NSString *)executionID
+        listeningToEvents:(NSArray *)eventNames
+                keepAlive:(BOOL)keepAlive
+      validateImmediately:(BOOL)validateImmediately
 {
-    if (eventNames.count == 0) {
-        return nil;
+    if (eventNames.count == 0 ||
+        executionBlock == nil) {
+        return;
     }
     
-    // See if there are other execution objects with the same id already in the stack. If so, then just replace it with this
+    // See if there are other execution objects with the same id already in the stack. If so, then just replace it with this one
     __block L360ExecutionObject *executionObject = nil;
     
     [_executionObjects enumerateObjectsUsingBlock:^(L360ExecutionObject *existingExecutionObject, NSUInteger idx, BOOL *stop) {
@@ -302,36 +304,16 @@ static NSString * const keyPrefix = @"kL360EventTracker";
     
     [_executionObjects addObject:executionObject];
     
-    return executionObject;
-}
-
-- (void)addAndRunExecutionBlock:(L360EventTrackerExecutionBlock)executionBlock
-                  whenValidated:(L360EventTrackerValidationBlock)validationBlock
-                withExecutionID:(NSString *)executionID
-              listeningToEvents:(NSArray *)eventNames
-                      keepAlive:(BOOL)keepAlive
-{
-    if (eventNames.count == 0) {
-        return;
+    // Validate and execute the object if requested to run immediately
+    if (validateImmediately) {
+        // This is necessary because the main flow of logic (and it could get expensive) is run
+        // On this calling thread and it could be the main thread and halt animations and graphics
+        // While this is running.
+        __weak L360EventTracker *weakSelf = self;
+        [_serialOperationQueue addOperationWithBlock:^{
+            [weakSelf validateAndExecuteObject:executionObject forEvent:eventNames.firstObject];
+        }];
     }
-    
-    // Add it as a block
-    L360ExecutionObject *executionObject = [self addExecutionBlock:executionBlock
-                                                     whenValidated:validationBlock
-                                                   withExecutionID:executionID
-                                                 listeningToEvents:eventNames
-                                                         keepAlive:keepAlive];
-    
-    // And then evaluate it with the first eventName in the list
-    
-    // Add the trigger to a serial operation queue to run on another thread
-    // This is necessary because the main flow of logic (and it could get expensive) is run
-    // On this calling thread and it could be the main thread and halt animations and graphics
-    // While this is running.
-    __weak L360EventTracker *weakSelf = self;
-    [_serialOperationQueue addOperationWithBlock:^{
-        [weakSelf validateAndExecuteObject:executionObject forEvent:eventNames.firstObject];
-    }];
 }
 
 #pragma mark Private Helpers
@@ -386,7 +368,11 @@ static NSString * const keyPrefix = @"kL360EventTracker";
 
 - (void)appWillResignActive
 {
-    [self resetEvents];
+    for (L360EventObject *eventObject in _eventObjects) {
+        if (eventObject.scope == L360EventTrackerScopeInstance) {
+            eventObject.value = eventObject.initialValue;
+        }
+    }
 }
 
 @end

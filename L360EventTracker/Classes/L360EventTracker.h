@@ -47,13 +47,13 @@ typedef void (^L360EventTrackerExecutionBlock)(NSString *triggerEvent, L360Event
 - (void)setEvent:(NSString *)event withValue:(id)value;
 
 /**
- *  This will reset all the events to their initially value
+ *  This will reset all the events to their initial value
  *  This will NOT trigger any of the events
  */
 - (void)resetEvents;
 
 /**
- *  This will reset the event to its initially value (without triggering the event)
+ *  This will reset the event to its initial value (without triggering the event)
  */
 - (void)resetEvent:(NSString *)event;
 
@@ -75,23 +75,16 @@ typedef void (^L360EventTrackerExecutionBlock)(NSString *triggerEvent, L360Event
  *  @param validationBlock  Block that should return a BOOL that is determined every time any of the events below is changed (this will be executed on main thread)
  *  @param eventNames       These are a list of events by which the validationBlock will be evaluated
  *  @param keepAlive        Keeps this execution alive so it will never leave the system.
+ *  @param validateImmediately  This will also run the validation and execution (if validation returns YES)
  *
  *  @return L360ExecutionObject This will return the object it added to the stack for execution.
  *
  */
-- (L360ExecutionObject *)addExecutionBlock:(L360EventTrackerExecutionBlock)executionBlock
-                             whenValidated:(L360EventTrackerValidationBlock)validationBlock
-                           withExecutionID:(NSString *)executionID
-                         listeningToEvents:(NSArray *)eventNames
-                                 keepAlive:(BOOL)keepAlive;
-
-/**
- *  This is exactly the same as above except it will be tested right away
- */
-- (void)addAndRunExecutionBlock:(L360EventTrackerExecutionBlock)executionBlock
-                  whenValidated:(L360EventTrackerValidationBlock)validationBlock
-                withExecutionID:(NSString *)executionID
-              listeningToEvents:(NSArray *)eventNames
-                      keepAlive:(BOOL)keepAlive;
+- (void)addExecutionBlock:(L360EventTrackerExecutionBlock)executionBlock
+            whenValidated:(L360EventTrackerValidationBlock)validationBlock
+          withExecutionID:(NSString *)executionID
+        listeningToEvents:(NSArray *)eventNames
+                keepAlive:(BOOL)keepAlive
+      validateImmediately:(BOOL)validateImmediately;
 
 @end

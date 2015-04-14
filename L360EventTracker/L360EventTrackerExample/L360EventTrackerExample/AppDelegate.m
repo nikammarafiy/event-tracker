@@ -55,7 +55,8 @@
                                            }
                                          withExecutionID:@"alertActionCompleted"
                                        listeningToEvents:@[@"backgroundedCount", @"buttonTapCount"]
-                                               keepAlive:NO];
+                                               keepAlive:NO
+                                     validateImmediately:NO];
     
     // And this will stay alive and regulate the order of the taps and backgrounds
     [[L360EventTracker sharedInstance] addExecutionBlock:^(NSString *triggerEvent, L360EventTracker *tracker) {
@@ -66,18 +67,17 @@
             // If the user taps the button too many times without backgrounding, then just reset the value
             if (backgroundedCount == 1) {
                 if (buttonTapCount > 3) {
-#warning Allow resetting of particular events
-                    [tracker setEvent:@"buttonTapCount" withValue:@0];
+                    [tracker resetEvent:@"buttonTapCount"];
                 }
             } else {
                 if (buttonTapCount > 1) {
-                    [tracker setEvent:@"buttonTapCount" withValue:@0];
+                    [tracker resetEvent:@"buttonTapCount"];
                 }
             }
         } else if ([triggerEvent isEqualToString:@"backgroundedCount"]) {
             // If the user backgrounds the app more than once or backgrounds at the wrong buttonTapCount then reset the value
             if (backgroundedCount > 1 || buttonTapCount != 1) {
-                [tracker setEvent:@"backgroundedCount" withValue:@0];
+                [tracker resetEvent:@"backgroundedCount"];
             }
         }
     }
@@ -90,7 +90,8 @@
                                            }
                                          withExecutionID:@"alertActionRegulator"
                                        listeningToEvents:@[@"backgroundedCount", @"buttonTapCount"]
-                                               keepAlive:YES];
+                                               keepAlive:YES
+                                     validateImmediately:NO];
     
     return YES;
 }
