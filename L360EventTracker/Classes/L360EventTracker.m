@@ -14,7 +14,6 @@
 static NSString * const keyPrefix = @"kL360EventTracker";
 @interface L360EventTracker ()
 {
-    ;
     NSMutableArray *_eventObjects;
     NSOperationQueue *_serialOperationQueue;
 }
