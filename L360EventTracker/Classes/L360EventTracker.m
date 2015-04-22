@@ -85,8 +85,12 @@ static NSString * const keyPrefix = @"kL360EventTracker";
         case L360EventTrackerScopeApp:
         {
             [_eventObjects addObject:eventObject];
-            // Initialize the userDefaults
+            
+            // Initialize the userDefaults (This does not over-write the value for the key if it already exists.
             [[NSUserDefaults standardUserDefaults] registerDefaults:@{[keyPrefix stringByAppendingString:event] : initialValue}];
+            
+            // But the default might already have a value.
+            eventObject.value = [[NSUserDefaults standardUserDefaults] valueForKey:[keyPrefix stringByAppendingString:event]];
             
             break;
         }

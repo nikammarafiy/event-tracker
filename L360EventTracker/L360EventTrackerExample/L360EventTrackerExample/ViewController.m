@@ -9,6 +9,10 @@
 #import "ViewController.h"
 #import "L360EventTracker.h"
 
+static NSString *const EVENT_BACKGROUND = @"event-background";
+static NSString *const EVENT_BUTTON_PRESS = @"event-button-press";
+static NSString *const EVENT_SUCESS_COUNT = @"event-success-count";
+
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 
@@ -42,14 +46,16 @@
 {
     NSInteger backgroundedCount = [[L360EventTracker sharedInstance] integerValueForEvent:EVENT_BACKGROUND];
     NSInteger buttonTapCount = [[L360EventTracker sharedInstance] integerValueForEvent:EVENT_BUTTON_PRESS];
+    NSInteger successCount = [[L360EventTracker sharedInstance] integerValueForEvent:EVENT_SUCESS_COUNT];
     
-    self.lblStatus.text = [NSString stringWithFormat:@"backgrounds: %li\nbuttonPresses: %li", (long)backgroundedCount, (long)buttonTapCount];
+    self.lblStatus.text = [NSString stringWithFormat:@"backgrounds: %li\nbuttonPresses: %li\nsuccessCount: %li", (long)backgroundedCount, (long)buttonTapCount, (long)successCount];
 }
 
 - (void)registerEventTrackerEvents
 {
     [[L360EventTracker sharedInstance] registerEvent:EVENT_BACKGROUND withInitialValue:@0 andScope:L360EventTrackerScopeSession];
     [[L360EventTracker sharedInstance] registerEvent:EVENT_BUTTON_PRESS withInitialValue:@0 andScope:L360EventTrackerScopeSession];
+    [[L360EventTracker sharedInstance] registerEvent:EVENT_SUCESS_COUNT withInitialValue:@0 andScope:L360EventTrackerScopeApp];
 }
 
 - (void)registerEventTrackerExecutions
@@ -112,6 +118,8 @@
 
 - (void)displaySuccessAlert
 {
+    [[L360EventTracker sharedInstance] triggerEvent:EVENT_SUCESS_COUNT];
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You did it!"
                                                     message:@"Yay!!"
                                                    delegate:nil
