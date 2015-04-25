@@ -63,6 +63,7 @@ typedef void (^L360EventTrackerExecutionBlock)(NSString *triggerEvent, L360Event
 - (BOOL)boolValueForEvent:(NSString *)event;
 - (NSArray *)arrayValueForEvent:(NSString *)event;
 - (NSDictionary *)dictionaryValueForEvent:(NSString *)event;
+- (id)valueForEvent:(NSString *)event;
 
 #pragma mark Event Execution
 

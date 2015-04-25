@@ -185,6 +185,17 @@ static NSString * const keyPrefix = @"kL360EventTracker";
     return nil;
 }
 
+- (id)valueForEvent:(NSString *)event
+{
+    L360EventObject *eventObject = [self eventObjectForEvent:event];
+    
+    if (eventObject) {
+        return eventObject.value;
+    }
+    
+    return nil;
+}
+
 #pragma mark Event Value Setters
 
 - (void)triggerEvent:(NSString *)event
