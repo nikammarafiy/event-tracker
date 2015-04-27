@@ -1,4 +1,4 @@
-# L360EventTracker
+# L360EventTracker iOS
 
 Let's say that you want an alert to pop-up when the user has opened your app 3 times AND takes an action within your app twice. How would you do it?
 
