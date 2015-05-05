@@ -114,9 +114,9 @@ static NSString * const keyPrefix = @"kL360EventTracker";
 - (void)eventObjectDidChange:(L360EventObject *)eventObject
 {
     // See if we need to execute anything that's listening on this event
-    // First we need to find all the executionObjects that are listening to this device
+    // First we need to find all the executionObjects that are listening to the event
     // TODO: Later maybe this can be optimized into a hash table or something. But right now this piece of code doesn't happen often enough to warrant it
-    NSMutableArray *objectsToValidate = [NSMutableArray array];
+    NSMutableSet *objectsToValidate = [NSMutableSet set];
     
     [_executionObjects enumerateObjectsUsingBlock:^(L360ExecutionObject *executionObject, NSUInteger idx, BOOL *stop) {
         if ([executionObject.triggerEvents containsObject:eventObject.event]) {
@@ -129,8 +129,7 @@ static NSString * const keyPrefix = @"kL360EventTracker";
     }
     
     // Now validate and execute every block that passes validation
-    // Also if they pass validation, remove them from the _executionObjects
-    [objectsToValidate enumerateObjectsUsingBlock:^(L360ExecutionObject *executionObject, NSUInteger idx, BOOL *stop) {
+    [objectsToValidate enumerateObjectsUsingBlock:^(L360ExecutionObject *executionObject, BOOL *stop) {
         [self validateAndExecuteObject:executionObject forEvent:eventObject.event];
     }];
 }
