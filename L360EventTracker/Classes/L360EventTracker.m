@@ -307,16 +307,15 @@ static NSString * const keyPrefix = @"kL360EventTracker";
     
     if (!executionObject) {
         executionObject = [[L360ExecutionObject alloc] init];
-    }
-    
-    executionObject.executionID = executionID;
-    executionObject.executionBlock = executionBlock;
-    executionObject.validationBlock = validationBlock;
-    executionObject.triggerEvents = eventNames;
-    executionObject.keepAlive = keepAlive;
-    
-    [_executionObjects addObject:executionObject];
-    
+		[_executionObjects addObject:executionObject];
+	}
+
+	executionObject.executionID = executionID;
+	executionObject.executionBlock = executionBlock;
+	executionObject.validationBlock = validationBlock;
+	executionObject.triggerEvents = eventNames;
+	executionObject.keepAlive = keepAlive;
+
     // Validate and execute the object if requested to run immediately
     if (validateImmediately) {
         // This is necessary because the main flow of logic (and it could get expensive) is run
