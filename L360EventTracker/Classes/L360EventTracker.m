@@ -73,42 +73,48 @@ static NSString * const keyPrefix = @"kL360EventTracker";
     
     // If it matches any of the scopes below, add it and also do the inital setup for that scope
     // Otherwise don't add this to the list if the user gave an undefined scope value
-    switch (scope) {
-        case L360EventTrackerScopeInstance:
-            [_eventObjects addObject:eventObject];
-            break;
-            
-        case L360EventTrackerScopeSession:
-            [_eventObjects addObject:eventObject];
-            break;
-            
-        case L360EventTrackerScopeApp:
-        {
-            [_eventObjects addObject:eventObject];
-            
-            // Initialize the userDefaults (This does not over-write the value for the key if it already exists.
-            [[NSUserDefaults standardUserDefaults] registerDefaults:@{[keyPrefix stringByAppendingString:event] : initialValue}];
-            
-            // But the default might already have a value.
-            eventObject.value = [[NSUserDefaults standardUserDefaults] valueForKey:[keyPrefix stringByAppendingString:event]];
-            
-            break;
+    @synchronized(_eventObjects) {
+        switch (scope) {
+            case L360EventTrackerScopeInstance:
+                [_eventObjects addObject:eventObject];
+                break;
+                
+            case L360EventTrackerScopeSession:
+                [_eventObjects addObject:eventObject];
+                break;
+                
+            case L360EventTrackerScopeApp:
+            {
+                [_eventObjects addObject:eventObject];
+                
+                // Initialize the userDefaults (This does not over-write the value for the key if it already exists.
+                [[NSUserDefaults standardUserDefaults] registerDefaults:@{[keyPrefix stringByAppendingString:event] : initialValue}];
+                
+                // But the default might already have a value.
+                eventObject.value = [[NSUserDefaults standardUserDefaults] valueForKey:[keyPrefix stringByAppendingString:event]];
+                
+                break;
+            }
+                
+            default:
+                break;
         }
-            
-        default:
-            break;
     }
 }
 
 - (L360EventObject *)eventObjectForEvent:(NSString *)event
 {
-    for (L360EventObject *existingEventObject in _eventObjects) {
-        if ([existingEventObject.event isEqualToString:event]) {
-            return existingEventObject;
+    L360EventObject *foundEventObject = nil;
+    
+    @synchronized(_eventObjects) {
+        for (L360EventObject *existingEventObject in _eventObjects) {
+            if ([existingEventObject.event isEqualToString:event]) {
+                foundEventObject = existingEventObject;
+            }
         }
     }
     
-    return nil;
+    return foundEventObject;
 }
 
 - (void)eventObjectDidChange:(L360EventObject *)eventObject
@@ -252,14 +258,16 @@ static NSString * const keyPrefix = @"kL360EventTracker";
 {
     // Need to reset the Instance scoped events
     // Don't trigger the event for this change of value though
-    for (L360EventObject *eventObject in _eventObjects) {
-        eventObject.value = eventObject.initialValue;
-        
-        // If event's scope is app level, update userdefaults
-        if (eventObject.scope == L360EventTrackerScopeApp) {
-            [[NSUserDefaults standardUserDefaults] setObject:eventObject.value
-                                                      forKey:[keyPrefix stringByAppendingString:eventObject.event]];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+    @synchronized(_eventObjects) {
+        for (L360EventObject *eventObject in _eventObjects) {
+            eventObject.value = eventObject.initialValue;
+            
+            // If event's scope is app level, update userdefaults
+            if (eventObject.scope == L360EventTrackerScopeApp) {
+                [[NSUserDefaults standardUserDefaults] setObject:eventObject.value
+                                                          forKey:[keyPrefix stringByAppendingString:eventObject.event]];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
         }
     }
 }
@@ -298,12 +306,14 @@ static NSString * const keyPrefix = @"kL360EventTracker";
     // See if there are other execution objects with the same id already in the stack. If so, then just replace it with this one
     __block L360ExecutionObject *executionObject = nil;
     
-    [_executionObjects enumerateObjectsUsingBlock:^(L360ExecutionObject *existingExecutionObject, NSUInteger idx, BOOL *stop) {
-        if ([executionID isEqualToString:existingExecutionObject.executionID]) {
-            executionObject = existingExecutionObject;
-            *stop = YES;
-        }
-    }];
+    @synchronized(_executionObjects) {
+        [_executionObjects enumerateObjectsUsingBlock:^(L360ExecutionObject *existingExecutionObject, NSUInteger idx, BOOL *stop) {
+            if ([executionID isEqualToString:existingExecutionObject.executionID]) {
+                executionObject = existingExecutionObject;
+                *stop = YES;
+            }
+        }];
+    }
     
     if (!executionObject) {
         executionObject = [[L360ExecutionObject alloc] init];
@@ -383,9 +393,11 @@ static NSString * const keyPrefix = @"kL360EventTracker";
 
 - (void)appWillResignActive
 {
-    for (L360EventObject *eventObject in _eventObjects) {
-        if (eventObject.scope == L360EventTrackerScopeInstance) {
-            eventObject.value = eventObject.initialValue;
+    @synchronized(_eventObjects) {
+        for (L360EventObject *eventObject in _eventObjects) {
+            if (eventObject.scope == L360EventTrackerScopeInstance) {
+                eventObject.value = eventObject.initialValue;
+            }
         }
     }
 }

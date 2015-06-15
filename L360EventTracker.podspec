@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "L360EventTracker"
-  s.version          = "1.0.0"
+  s.version          = "1.0.1"
   s.summary          = "Keep track of what your user is doing within your app and then execute code based on their behavior"
   s.description      = <<-DESC
                        <p>Think of this as your local app rating class.. but better.</p>
