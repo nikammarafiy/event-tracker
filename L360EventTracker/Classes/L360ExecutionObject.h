@@ -17,4 +17,9 @@
 @property (nonatomic, copy) L360EventTrackerExecutionBlock executionBlock;
 @property (nonatomic, assign) BOOL keepAlive;
 
+// Sometimes due to threading, multiple execution blocks are setup to run on the same ExecutionObject
+// Even though it's been marked as keepAlive = NO
+// So to mitigate this multi-threading issue, this flag will be used and before evaluation this will be checked
+@property (nonatomic, assign) BOOL markForDeletion;
+
 @end

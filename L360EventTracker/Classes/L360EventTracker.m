@@ -370,7 +370,8 @@ static NSString * const keyPrefix = @"kL360EventTracker";
 - (void)validateAndExecuteObject:(L360ExecutionObject *)executionObject forEvent:(NSString *)eventName
 {
     @synchronized(_executionObjects) {
-        if (executionObject) {
+        if (executionObject &&
+            !executionObject.markForDeletion) {
             // This is executing inside the OperationQueue and so need to dispatch to main thread for
             __weak L360EventTracker *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^(void)
@@ -390,6 +391,7 @@ static NSString * const keyPrefix = @"kL360EventTracker";
                                    // Remove the block from the stack
                                    if (!executionObject.keepAlive) {
                                        [weakSelf.executionObjects removeObject:executionObject];
+                                       executionObject.markForDeletion = YES;
                                    }
                                }
                            });
