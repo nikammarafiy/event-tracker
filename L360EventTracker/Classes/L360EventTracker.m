@@ -379,13 +379,15 @@ static NSString * const keyPrefix = @"kL360EventTracker";
                                // First validate the block and if valid then execute it
                                // Default to YES if validationBlock is nil
                                BOOL validated = YES;
-                               if (executionObject.validationBlock) {
+                               if (executionObject.validationBlock &&
+                                   !executionObject.markForDeletion) {
                                    validated = executionObject.validationBlock(eventName, self);
                                }
                                
                                // Run the execution if validated
                                if (validated &&
-                                   executionObject.executionBlock) {
+                                   executionObject.executionBlock &&
+                                   !executionObject.markForDeletion) {
                                    executionObject.executionBlock(eventName, self);
                                    
                                    // Remove the block from the stack
