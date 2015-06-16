@@ -124,11 +124,13 @@ static NSString * const keyPrefix = @"kL360EventTracker";
     // TODO: Later maybe this can be optimized into a hash table or something. But right now this piece of code doesn't happen often enough to warrant it
     NSMutableSet *objectsToValidate = [NSMutableSet set];
     
-    [_executionObjects enumerateObjectsUsingBlock:^(L360ExecutionObject *executionObject, NSUInteger idx, BOOL *stop) {
-        if ([executionObject.triggerEvents containsObject:eventObject.event]) {
-            [objectsToValidate addObject:executionObject];
-        }
-    }];
+    @synchronized(_executionObjects) {
+        [_executionObjects enumerateObjectsUsingBlock:^(L360ExecutionObject *executionObject, NSUInteger idx, BOOL *stop) {
+            if ([executionObject.triggerEvents containsObject:eventObject.event]) {
+                [objectsToValidate addObject:executionObject];
+            }
+        }];
+    }
     
     if (objectsToValidate.count == 0) {
         return;
@@ -313,18 +315,18 @@ static NSString * const keyPrefix = @"kL360EventTracker";
                 *stop = YES;
             }
         }];
-    }
     
-    if (!executionObject) {
-        executionObject = [[L360ExecutionObject alloc] init];
-		[_executionObjects addObject:executionObject];
-	}
+        if (!executionObject) {
+            executionObject = [[L360ExecutionObject alloc] init];
+            [_executionObjects addObject:executionObject];
+        }
 
-	executionObject.executionID = executionID;
-	executionObject.executionBlock = executionBlock;
-	executionObject.validationBlock = validationBlock;
-	executionObject.triggerEvents = eventNames;
-	executionObject.keepAlive = keepAlive;
+        executionObject.executionID = executionID;
+        executionObject.executionBlock = executionBlock;
+        executionObject.validationBlock = validationBlock;
+        executionObject.triggerEvents = eventNames;
+        executionObject.keepAlive = keepAlive;
+    }
 
     // Validate and execute the object if requested to run immediately
     if (validateImmediately) {
@@ -346,11 +348,13 @@ static NSString * const keyPrefix = @"kL360EventTracker";
     // TODO: Later maybe this can be optimized into a hash table or something. But right now this piece of code doesn't happen often enough to warrant it
     NSMutableArray *objectsToValidate = [NSMutableArray array];
     
-    [_executionObjects enumerateObjectsUsingBlock:^(L360ExecutionObject *executionObject, NSUInteger idx, BOOL *stop) {
-        if ([executionObject.triggerEvents containsObject:eventName]) {
-            [objectsToValidate addObject:executionObject];
-        }
-    }];
+    @synchronized(_executionObjects) {
+        [_executionObjects enumerateObjectsUsingBlock:^(L360ExecutionObject *executionObject, NSUInteger idx, BOOL *stop) {
+            if ([executionObject.triggerEvents containsObject:eventName]) {
+                [objectsToValidate addObject:executionObject];
+            }
+        }];
+    }
     
     if (objectsToValidate.count == 0) {
         return;
@@ -365,28 +369,32 @@ static NSString * const keyPrefix = @"kL360EventTracker";
 
 - (void)validateAndExecuteObject:(L360ExecutionObject *)executionObject forEvent:(NSString *)eventName
 {
-    // This is executing inside the OperationQueue and so need to dispatch to main thread for
-    __weak L360EventTracker *weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^(void)
-    {
-        // First validate the block and if valid then execute it
-        // Default to YES if validationBlock is nil
-        BOOL validated = YES;
-        if (executionObject.validationBlock) {
-            validated = executionObject.validationBlock(eventName, self);
+    @synchronized(_executionObjects) {
+        if (executionObject) {
+            // This is executing inside the OperationQueue and so need to dispatch to main thread for
+            __weak L360EventTracker *weakSelf = self;
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               // First validate the block and if valid then execute it
+                               // Default to YES if validationBlock is nil
+                               BOOL validated = YES;
+                               if (executionObject.validationBlock) {
+                                   validated = executionObject.validationBlock(eventName, self);
+                               }
+                               
+                               // Run the execution if validated
+                               if (validated &&
+                                   executionObject.executionBlock) {
+                                   executionObject.executionBlock(eventName, self);
+                                   
+                                   // Remove the block from the stack
+                                   if (!executionObject.keepAlive) {
+                                       [weakSelf.executionObjects removeObject:executionObject];
+                                   }
+                               }
+                           });
         }
-        
-        // Run the execution if validated
-        if (validated &&
-            executionObject.executionBlock) {
-            executionObject.executionBlock(eventName, self);
-            
-            // Remove the block from the stack
-            if (!executionObject.keepAlive) {
-                [weakSelf.executionObjects removeObject:executionObject];
-            }
-        }
-    });
+    }
 }
 
 #pragma mark Notifications
